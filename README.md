@@ -1,4 +1,4 @@
-# CPSC 406 - Programming Languages Repository
+# CPSC 406 - Algorithm Analysis Repository
 
 ## Name:
 

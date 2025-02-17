@@ -85,6 +85,97 @@
 
 \subsection{Week 1}
 
+1. Automata
+
+- machine model which has variety of computations without memory
+- traversal (trees, graphs, nodes)
+- Turing machine
+- traffic light
+
+- parking machine
+- mechanical calculators
+- streaming
+- regular expressions (regex): such as NLP, parsing, coding theory, file management
+
+automata: implement algorithms, admit algorithmic instructions.
+
+
+2. Computability And complexity
+
+- universal language to analyze algorithms/problems/computations for:
+- efficiency/(runtime, spacetime, etc) resource/scaling
+- comparison between complexity, hardness of problems
+- complexity classes
+- big-o-notation
+- reducing problems
+- P vs NP, sat problems
+
+3. Graph Algorithms
+
+- network theory ( data, mechanical, chemical, operations)
+
+2/6
+
+1. Automata theory
+
+states: positions: (head) $\overrightarrow{l}$  () $\overrightarrow{t}$  (end)
+
+ex.1 parking machine:
+charge/hr = 25c
+accepted: coins, no change, no 1, 2c coins
+
+states:
+- value paid so far (0)
+0 -> [5,10,25]
+
+ex.2 valid var names:
+1. index 0: letter?
+2. index n > 0: letter or digit or symbol
+
+\subsection{Week 2}
+
+\subsubsection*{Notes}
+
+Chapter 2.1 of ITALC discusses the basic model of computation that demonstrates the structure and components of finite automata. It explains that a finite automaton is a simple computational machine which is composed of a set of states, including a start state, and one or more end states. As the automaton reads an input, it transitions between states based on a set of rules, the transition functions. The section uses examples with simple intuition, such as an on/off switch, to show how a system can 'remember' essential information despite its simplicity. Also, it talks about the difference between deterministic and non-deterministic models. A deterministic model is one in which each state has a unique transition for each input, and a non-deterministic model is one where multiple transitions may be possible for one input. Although these two models are very different in practice, they recognize the same set of basic regular language. 
+
+\subsubsection*{Homework}
+
+Introduction to Automata Theory:
+
+Homework: Characterize all the accepted words (i.e., describe exactly those words that get recognized).\newline
+Answer:  [5, 5, 5, 5, 5], [5, 5, 5, 10], [5, 5, 10, 5], [5, 10, 5, 5], [5, 10, 10], [10, 5, 5, 5], [10, 5, 10], [10, 10, 5]
+
+Homework: Characterize all the accepted words. Can you describe them via a regular expression?\newline
+Answer: Any word which ends in 'pay' will result in end state being unlocked
+
+Deterministic and Non-Deterministic Finite Automata:
+
+Homework: Determine for the following words, if they are contained in $L_{1}$, $L_{2}$, or $L_{3}$.\newline
+Answer:
+\begin{table}[h!]
+  \centering
+  \begin{tabular}{||c c c||} 
+   \hline
+   word & A\_1 & A\_2 \\ [0.5ex] 
+   \hline\hline
+   aaa & no  & yes  \\ 
+   aab & yes  & no  \\
+   aba & no  & no  \\
+   abb & no  & no  \\
+   baa & no  & yes \\ 
+   bab & no & no \\
+   bba & no & no \\
+   bbb & no & no \\ [1ex] 
+   \hline
+  \end{tabular}
+  \end{table}
+
+Homework: Consider the DFA from above: Consider the paths corresponding to the words $w_{1}$ = 0010, $w_{2}$ = 1101, $w_{3}$ = 1100.\newline
+Answer: $w_{1}$ and $w_{2}$ both achieve the end state
+
+\subsubsection*{Comments and Questions}
+Because finite automata have limited memory, their ability to recognize more complex language patterns is restricted. Will the range of what is categorized as a finite automaton broaden over time? How could we modify automata to recognize more complex language?
+
 \section{Synthesis}
 
 \section{Evidence of Participation}

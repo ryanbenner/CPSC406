@@ -1,4 +1,4 @@
-import labs.Week2.dfa as dfa
+import dfa as dfa
 
 # generate words for testing
 def generate_words():

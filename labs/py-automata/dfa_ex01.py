@@ -1,3 +1,4 @@
+# dfa_ex01.py
 import dfa as dfa
 
 # generate words for testing
@@ -26,9 +27,6 @@ def __main__() :
     q01 = '1'
     F1 = {'3'}
     
-    # todo: instantiate accordingly
-    A1 = dfa.DFA(Q1, Sigma1, delta1, q01, F1)
-    
     Q2 = {'1', '2', '3'}
     Sigma2 = {'a','b'}
     delta2 = {
@@ -42,14 +40,13 @@ def __main__() :
     q02 = '1'
     F2 = {'3'}
 
-    # todo: instantiate accordingly
+    A1 = dfa.DFA(Q1, Sigma1, delta1, q01, F1)
     A2 = dfa.DFA(Q2, Sigma2, delta2, q02, F2)
     
     words = generate_words()
     automata = [A1, A2]
     
-    # test words on automata
-    for X in automata:
+    for X in automata: # test words
          print(f"{X.__repr__()}")
          for w in words:
             print(f"{w}: {X.run(w)}")

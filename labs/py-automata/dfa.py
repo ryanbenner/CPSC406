@@ -1,5 +1,4 @@
-# a class for DFAs
-# modify as needed
+# dfa.py
 class DFA :
 
     # init the DFA

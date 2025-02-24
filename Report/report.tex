@@ -21,7 +21,8 @@
     
 \usepackage{listings}
 \usepackage[utf8]{inputenc}                                                    
-\usepackage[T1]{fontenc}                                                       
+\usepackage[T1]{fontenc}      
+\usepackage{pdfpages}                                                 
 
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
@@ -183,7 +184,22 @@ Because finite automata have limited memory, their ability to recognize more com
 
 \subsubsection*{Homework}
 
+\underline{Exercise 2, 1-3:}
+
+The file $\mathbf{dfa.py}$ implements a class representing a deterministic finite automaton(DFA) The automaton is defined by a set of states, inputs, transition functions, an initial state, and accepting states, all of which are initialized in the constructor function. The repr method offers a formatted string representation of the DFA for easy inspection. The run method processes an input word by iterating through its characters and transitions between states according to the defined rules. If an undefined transition is encountered or an invalid symbol is detected, the word is rejected. Finally, the refuse method generates a complementary DFA by changing the set of accepting states to accept words that the original DFA rejects.
+\newline
+The file $\mathbf{dfa-ex01.py}$ implements two DFAs, A1 and A2, and runs each through dfa.py to test them repsectively.
+
+\lstinputlisting[language=Octave]{../labs/py-automata/dfa.py}
+\lstinputlisting[language=Octave]{../labs/py-automata/dfa_ex01.py}
+
+\underline{Drawings for Lab Exercise 4, ITALC Exercise 2.2.4}
+
+\includepdf[pages=-]{attachments/CPSC406_HW2.pdf}
+
 \subsubsection*{Comments and Questions}
+
+I occasionally find myself struggling to recognize the pattern when first looking at a new DFA. Is there an insightful method or trick to recognizing these patterns more easily?
 
 \section{Synthesis}
 

@@ -29,6 +29,7 @@
 
 # Ignore any specific files you don't want to track
 # !examplefile.txt
+*.DS_Store
 
 # Allow PDF files
 !*.pdf

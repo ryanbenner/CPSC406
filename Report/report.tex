@@ -201,6 +201,76 @@ The file $\mathbf{dfa-ex01.py}$ implements two DFAs, A1 and A2, and runs each th
 
 I occasionally find myself struggling to recognize the pattern when first looking at a new DFA. Is there an insightful method or trick to recognizing these patterns more easily?
 
+\subsection{Week 4}
+
+\subsubsection*{Notes}
+
+\subsubsection*{Homework}
+
+\underline{Homework 1}
+
+1. The language of the automata A2 can be described as starting with an a and having an odd length. Any b's that may occur must do so from state 2. This can be described as a regular expression $a((a|b)a)*$.
+
+2. The extended transition functions can be evaluated as follows:
+
+A1:
+\begin{itemize}
+  \item $\delta_1(1, a) = 2$
+  \item $\delta_1(2, b) = 4$
+  \item $\delta_1(4, a) = 2$
+  \item $\delta_1(2, a) = 3$
+\end{itemize}
+
+A2:
+\begin{itemize}
+  \item $\delta_2(1, a) = 2$
+  \item $\delta_2(2, b) = 1$
+  \item $\delta_2(1, b) = 3$
+  \item $\delta_2(3, a) = 3$
+\end{itemize}
+
+\underline{Homework 2}
+
+\begin{tikzpicture}[shorten >=1pt,node distance=2.5cm,on grid,auto]
+  % Nodes
+  \node[state,initial] (q0) {$(q_0,p_0)$};
+  \node[state,accepting] (qa) [right=of q0] {$(q_a,p_1)$};
+  \node[state,accepting] (qb) [below=of qa] {$(q_b,p_0)$};
+  \node[state] (trap) [below=of q0] {$\bot$};
+  % Transitions from (q0,p0)
+  \path[->]
+      (q0) edge node {a} (qa)
+           edge node [swap] {b} (trap)
+  % Transitions from (q_a,p_1)
+      (qa) edge node {b} (qb)
+           edge[bend left] node {a} (trap)
+  % Transitions from (q_b,p_0)
+      (qb) edge node {a} (qa)
+           edge[bend right] node [swap] {b} (trap)
+  % Trap self-loop
+      (trap) edge [loop left] node {a,b} (trap);
+\end{tikzpicture}
+
+2. When constructing the product automaton, a word w is processed by both components simultaneously. The word is said to be accepted iff the computation ends in a state $(q,p)$ where q is in F(1) and p is in F(2). This means that w is accepted by both A(1) and A(2), so L(A) can be the intersection between the two. 
+
+3. In the product automaton constrction, the set of states is always $Q_1 * Q_2$ and the transitions are the same. To find an automaton which is the union of the two languages, we change the accepting states. So, a word w is accepted by A' iff it is accepted by at least one of the original automata, which gives L(A') to be the union of L(A1) and L(A2). 
+
+To summarize:
+
+\[
+\begin{aligned}
+Q &= Q^{(1)}\times Q^{(2)}, \\
+\delta((q,p),x) &= (\delta^{(1)}(q,x),\,\delta^{(2)}(p,x)), \\
+q_0 &= (q_0^{(1)},q_0^{(2)}), \\
+F' &= \Bigl\{(q,p) \in Q^{(1)}\times Q^{(2)} : q\in F^{(1)} \text{ or } p\in F^{(2)}\Bigr\}.
+\end{aligned}
+\]
+
+
+\subsubsection*{Comments and Questions}
+
+Do automata with some form of union or intersection have real world applications relating to natural language processing? Could they be used to improve parsing in conversational AI? 
+
 \section{Synthesis}
 
 \section{Evidence of Participation}

@@ -266,6 +266,29 @@ F' &= \Bigl\{(q,p) \in Q^{(1)}\times Q^{(2)} : q\in F^{(1)} \text{ or } p\in F^{
 \end{aligned}
 \]
 
+\underline{Exercise 2.2.7 - ITALC}
+
+\textbf{Theorem.} Let \(A = (Q,\Sigma,\delta,q_0,F)\) be a DFA and let \(q \in Q\) be such that 
+\[
+\delta(q,a) = q \quad \text{for all } a \in \Sigma.
+\]
+Then for all \(w \in \Sigma^*\), \(\hat{\delta}(q,w) = q\).
+
+\textbf{Proof.} We prove by induction on the length of \(w\).
+
+\textit{Base Case:} \(w = \varepsilon\) (the empty string).  
+By definition of the extended transition function,
+\[
+\hat{\delta}(q,\varepsilon) = q.
+\]
+
+\textit{Inductive Step:} Assume that for some \(w \in \Sigma^*\), \(\hat{\delta}(q,w) = q\).  
+Let \(a \in \Sigma\). Then,
+\[
+\hat{\delta}(q, wa) = \delta(\hat{\delta}(q, w), a) = \delta(q, a) = q.
+\]
+Thus, by the principle of induction, for all \(w \in \Sigma^*\), \(\hat{\delta}(q,w) = q\).
+
 
 \subsubsection*{Comments and Questions}
 

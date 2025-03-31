@@ -153,7 +153,7 @@ Answer: Any word which ends in 'pay' will result in end state being unlocked
 
 Homework: Determine for the following words, if they are contained in $L_{1}$, $L_{2}$, or $L_{3}$.\newline
 Answer:
-\begin{table}[h!]
+\begin{table}[!ht]
   \centering
   \begin{tabular}{||c c c||} 
    \hline
@@ -293,6 +293,345 @@ Thus, by the principle of induction, for all \(w \in \Sigma^*\), \(\hat{\delta}(
 \subsubsection*{Comments and Questions}
 
 Do automata with some form of union or intersection have real world applications relating to natural language processing? Could they be used to improve parsing in conversational AI? 
+
+\subsection{Week 5}
+
+\subsubsection*{Notes}
+
+\subsubsection*{Homework}
+
+\subsection{Week 6}
+
+\subsubsection*{Notes}
+
+\subsubsection*{Homework}
+
+\subsection{Week 7}
+
+\subsubsection*{Notes}
+
+\subsubsection*{Homework}
+
+\textbf{DFA Regular Expressions and State Elimination (Exercise 3.2.1)}
+
+Given a transition table:
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+       & 0   & 1   \\ \hline
+$\rightarrow q_1$ & $q_2$ & $q_1$ \\ \hline
+$q_2$ & $q_3$ & $q_1$ \\ \hline
+$*q_3$ & $q_3$ & $q_2$ \\ \hline
+\end{tabular}
+\end{center}
+
+\medskip
+
+\textbf{a. \(R_{ij}^{(0)}\) (Initial regular expressions with no intermediate states)}\\[1mm]
+Let 
+\[
+R_{ij}^{(0)} = \begin{cases}
+\text{the symbol(s) labeling direct transitions from state } i \text{ to state } j,\\[1mm]
+\varnothing, \quad \text{if no direct transition,}\\[1mm]
+\epsilon, \quad \text{if } i = j.
+\end{cases}
+\]
+Thus,
+\[
+\begin{array}{rcl}
+R_{11}^{(0)} &=& \epsilon, \quad R_{12}^{(0)} = 0, \quad R_{13}^{(0)} = \varnothing,\\[1mm]
+R_{21}^{(0)} &=& 1, \quad R_{22}^{(0)} = \epsilon, \quad R_{23}^{(0)} = 0,\\[1mm]
+R_{31}^{(0)} &=& \varnothing, \quad R_{32}^{(0)} = 1, \quad R_{33}^{(0)} = 0 \mid \epsilon.
+\end{array}
+\]
+
+\medskip
+
+\textbf{b. \(R_{ij}^{(1)}\) (Using state \(q_1\) as intermediate)}\\[1mm]
+Using the formula
+\[
+R_{ij}^{(k)} = R_{ij}^{(k-1)} \cup R_{i k}^{(k-1)}\,(R_{kk}^{(k-1)})^*\, R_{kj}^{(k-1)},
+\]
+with \(q_1\) as the singular intermediate state we get:
+\[
+\begin{array}{rcl}
+R_{11}^{(1)} &=& \epsilon \cup (\epsilon)(\epsilon)^*\epsilon = \epsilon,\\[1mm]
+R_{12}^{(1)} &=& 0 \cup (\epsilon)(\epsilon)0 = 0,\\[1mm]
+R_{13}^{(1)} &=& \varnothing \cup (\epsilon)(\epsilon)\varnothing = \varnothing,\\[1mm]
+R_{21}^{(1)} &=& 1 \cup (1)(\epsilon)^*\epsilon = 1,\\[1mm]
+R_{22}^{(1)} &=& \epsilon \cup (1)(\epsilon)0 = 10,\\[1mm]
+R_{23}^{(1)} &=& 0 \cup (1)(\epsilon)\varnothing = 0,\\[1mm]
+R_{31}^{(1)} &=& \varnothing \cup (1)(\epsilon)^*\epsilon = \varnothing,\\[1mm]
+R_{32}^{(1)} &=& 1 \cup (1)(\epsilon)0 = 1,\\[1mm]
+R_{33}^{(1)} &=& 0 \cup (1)(\epsilon)\varnothing = 0.
+\end{array}
+\]
+
+\medskip
+
+\textbf{c. \(R_{ij}^{(2)}\) (Using \(q_1\) and \(q_2\) as intermediates)}\\[1mm]
+Now we add \(q_2\) as an intermediate state:
+\[
+\begin{array}{rcl}
+R_{11}^{(2)} &=& \epsilon \cup 0\,(10)^*\,1,\\[1mm]
+R_{12}^{(2)} &=& 0 \cup 0\,(10)^*\,10,\\[1mm]
+R_{13}^{(2)} &=& 0\,(10)^*\,0,\\[1mm]
+R_{21}^{(2)} &=& 1 \cup 10\,(10)^*\,1,\\[1mm]
+R_{22}^{(2)} &=& 10\,(10)^*\,10 \cup \epsilon,\\[1mm]
+R_{23}^{(2)} &=& 0 \cup 10\,(10)^*\,0,\\[1mm]
+R_{31}^{(2)} &=& \varnothing \cup 1\,(10)^*\,1,\\[1mm]
+R_{32}^{(2)} &=& 1 \cup 1\,(10)^*\,10,\\[1mm]
+R_{33}^{(2)} &=& 0 \cup 1\,(10)^*\,0.
+\end{array}
+\]
+
+\medskip
+
+\textbf{d. Regular Expression for the Language}\\[1mm]
+Start state: \(q_1\) \quad Final state: \(q_3\).\\[1mm]
+The regex is \(R_{13}^{(2)}\), so
+\[
+R = 0\,(10)^*\,0.
+\]
+
+\medskip
+
+\textbf{e. Transition Diagram and State Elimination (eliminate \(q_2\))}\\[1mm]
+A simpler diagram of the DFA is:
+\[
+q_1 \xrightarrow{0} q_2 \xrightarrow{0} q_3\quad (\text{final})
+\]
+with loops and additional transitions that are indicated in the original DFA. After getting rid of \(q_2\), the path from \(q_1\) to \(q_3\) becomes:
+\[
+(1 \cup 01)00(0),
+\]
+so final regular expression becomes
+\[
+R = (1 \cup 01)00(0).
+\]
+
+\bigskip
+
+\textbf{DFA Regular Expressions and State Elimination (Exercise 3.2.2)}
+
+Given the transition table:
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+       & 0   & 1   \\ \hline
+$\rightarrow q_1$ & $q_2$ & $q_3$ \\ \hline
+$q_2$ & $q_1$ & $q_3$ \\ \hline
+$*q_3$ & $q_2$ & $q_1$ \\ \hline
+\end{tabular}
+\end{center}
+
+\medskip
+
+\textbf{a. \(R_{ij}^{(0)}\) (Initial regular expressions with no intermediate states)}\\[1mm]
+Let
+\[
+\begin{array}{rcl}
+R_{11}^{(0)} &=& \epsilon, \quad R_{12}^{(0)} = 0, \quad R_{13}^{(0)} = 1,\\[1mm]
+R_{21}^{(0)} &=& 0, \quad R_{22}^{(0)} = \epsilon, \quad R_{23}^{(0)} = 1,\\[1mm]
+R_{31}^{(0)} &=& 1, \quad R_{32}^{(0)} = 0, \quad R_{33}^{(0)} = \epsilon.
+\end{array}
+\]
+
+\medskip
+
+\textbf{b. \(R_{ij}^{(1)}\) (Using \(q_1\) as intermediate)}\\[1mm]
+Apply:
+\[
+R_{ij}^{(1)} = R_{ij}^{(0)} \cup R_{i1}^{(0)}\,(R_{11}^{(0)})^*\,R_{1j}^{(0)}.
+\]
+This gives:
+\[
+\begin{array}{rcl}
+R_{11}^{(1)} &=& \epsilon \cup \epsilon\cdot\epsilon\cdot\epsilon = \epsilon,\\[1mm]
+R_{12}^{(1)} &=& 0 \cup \epsilon\cdot\epsilon\cdot 0 = 0,\\[1mm]
+R_{13}^{(1)} &=& 1 \cup \epsilon\cdot\epsilon\cdot 1 = 1,\\[1mm]
+R_{21}^{(1)} &=& 0 \cup 0\cdot\epsilon\cdot\epsilon = 0,\\[1mm]
+R_{22}^{(1)} &=& \epsilon \cup 0\cdot\epsilon\cdot 0 = \epsilon \cup 00,\\[1mm]
+R_{23}^{(1)} &=& 1 \cup 0\cdot\epsilon\cdot 1 = 1 \cup 01,\\[1mm]
+R_{31}^{(1)} &=& 1 \cup 1\cdot\epsilon\cdot\epsilon = 1,\\[1mm]
+R_{32}^{(1)} &=& 0 \cup 1\cdot\epsilon\cdot 0 = 0 \cup 10,\\[1mm]
+R_{33}^{(1)} &=& \epsilon \cup 1\cdot\epsilon\cdot 1 = \epsilon \cup 11.
+\end{array}
+\]
+
+\medskip
+
+\textbf{c. \(R_{ij}^{(2)}\) (Using \(q_1\) and \(q_2\) as intermediates)}\\[1mm]
+Apply:
+\[
+R_{ij}^{(2)} = R_{ij}^{(1)} \cup R_{i2}^{(1)}\,(R_{22}^{(1)})^*\,R_{2j}^{(1)}.
+\]
+For example:
+\[
+\begin{array}{rcl}
+R_{11}^{(2)} &=& \epsilon \cup 0\,( (\epsilon \cup 00) )^*\;0,\\[1mm]
+R_{12}^{(2)} &=& 0 \cup 0\,( (\epsilon \cup 00) )^*\;(\epsilon \cup 00),\\[1mm]
+R_{13}^{(2)} &=& 1 \cup 0\,( (\epsilon \cup 00) )^*\;(1 \cup 01),
+\end{array}
+\]
+and in a similar manner for the other entries.
+
+\medskip
+
+\textbf{d. Regular Expression for the Language}\\[1mm]
+Start state: \(q_1\) \quad Final state: \(q_3\).\\[1mm]
+Thus,
+\[
+R = R_{13}^{(2)} = 1 \cup 0\,( (\epsilon \cup 00) )^*(1 \cup 01).
+\]
+
+\medskip
+
+\textbf{e. Transition Diagram and State Elimination (eliminate \(q_2\))}\\[1mm]
+A simplified diagram is as follows:
+\[
+q_1 \xrightarrow{0} q_2 \xrightarrow{0} q_1 \quad \text{and} \quad q_3 \xleftarrow{1} q_3.
+\]
+By getting rid of \(q_2\) and considering the other paths:
+\[
+q_1 \xrightarrow{0} q_2 \xrightarrow{1} q_3 \quad \Rightarrow \quad 01,
+\]
+\[
+q_1 \xrightarrow{0} q_2 \xrightarrow{0} q_1 \quad \Rightarrow \quad 00 \text{ (loop)},
+\]
+the final regex becomes:
+\[
+R = \left( 1 \cup 0(00)^*1 \right).
+\]
+
+\bigskip
+
+\textbf{DFA Minimization (Exercise 4.4.1)}
+
+Given the transition table:
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+       & 0   & 1   \\ \hline
+$\rightarrow A$ & $B$ & $A$ \\ \hline
+$B$ & $A$ & $C$ \\ \hline
+$C$ & $D$ & $B$ \\ \hline
+$*D$ & $D$ & $A$ \\ \hline
+$E$ & $D$ & $F$ \\ \hline
+$F$ & $G$ & $E$ \\ \hline
+$G$ & $F$ & $G$ \\ \hline
+$H$ & $G$ & $D$ \\ \hline
+\end{tabular}
+\end{center}
+
+\medskip
+
+\textbf{a. Table of Distinguishabilities}\\[1mm]
+We make a lower-triangular table marking different pairs of states.\\[1mm]
+\textbf{Step 1:} Mark all the pairs that have one state as final (\(D\)) and the other as non-final.\\[1mm]
+\textbf{Step 2:} Propagate markings by checking transitions.\\[1mm]
+Final table (checkmark = marked/inequivalent, blank = equivalent):
+\[
+\begin{array}{c|cccccccc}
+& A & B & C & D & E & F & G & H\\ \hline
+B & \checkmark &  &  &  &  &  &  &  \\
+C & \checkmark & \checkmark &  &  &  &  &  &  \\
+D & \checkmark & \checkmark & \checkmark &  & \checkmark & \checkmark & \checkmark & \checkmark \\
+E & \checkmark & \checkmark & \checkmark & \checkmark &  &  &  &  \\
+F & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark &  &  &  \\
+G & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark &  &  \\
+H & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark &  \\
+\end{array}
+\]
+The unmarked (equivalent) states are \(E\), \(F\), and \(G\).
+
+\medskip
+
+\textbf{b. Minimum-State Equivalent DFA}\\[1mm]
+Merge equal states:
+\[
+[E, F, G] \to \texttt{EFG}.
+\]
+The new transition table is:
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+State & 0   & 1   & Accept? \\ \hline
+\(A\) & \(B\) & \(A\) & No \\ \hline
+\(B\) & \(A\) & \(C\) & No \\ \hline
+\(C\) & \(D\) & \(B\) & No \\ \hline
+\(D\) & \(D\) & \(A\) & Yes \\ \hline
+\(\texttt{EFG}\) & \(\texttt{EFG}\) & \(\texttt{EFG}\) & No \\ \hline
+\(H\) & \(\texttt{EFG}\) & \(D\) & No \\ \hline
+\end{tabular}
+\end{center}
+
+\bigskip
+
+\textbf{DFA Minimization (Exercise 4.4.2)}
+
+Given the transition table:
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+       & 0   & 1   \\ \hline
+$\rightarrow A$ & \(B\) & \(E\) \\ \hline
+\(B\) & \(C\) & \(F\) \\ \hline
+\(*C\) & \(D\) & \(H\) \\ \hline
+\(D\) & \(E\) & \(I\) \\ \hline
+\(E\) & \(F\) & \(H\) \\ \hline
+\(*F\) & \(G\) & \(B\) \\ \hline
+\(G\) & \(H\) & \(B\) \\ \hline
+\(H\) & \(I\) & \(C\) \\ \hline
+\(*I\) & \(A\) & \(E\) \\ \hline
+\end{tabular}
+\end{center}
+
+\medskip
+
+\textbf{a. Table of Distinguishabilities}\\[1mm]
+Final states: \(C\), \(F\), and \(I\).\\[1mm]
+Mark all the pairs with one final and one non-final state, then make distinctions. The final table (checkmark = distinguishable) is:
+\[
+\begin{array}{c|ccccccccc}
+ & A & B & C & D & E & F & G & H & I \\ \hline
+B & \checkmark &  &  &  &  &  &  &  &  \\
+C & \checkmark & \checkmark &  &  &  &  &  &  &  \\
+D & \checkmark & \checkmark & \checkmark &  &  &  &  &  &  \\
+E & \checkmark & \checkmark & \checkmark & \checkmark &  &  &  &  &  \\
+F & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark &  &  &  &  \\
+G & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark &  &  &  \\
+H & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark &  &  \\
+I & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark &  \\
+\end{array}
+\]
+The equivalent states (unmarked) are \(C\), \(F\), and \(I\), which we merge as:
+\[
+[C, F, I] \to \texttt{CFI}.
+\]
+
+\medskip
+
+\textbf{b. Minimum-State Equivalent DFA}\\[1mm]
+The new transition table becomes:
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+State & 0   & 1   & Accept? \\ \hline
+\(A\) & \(B\) & \(E\) & No \\ \hline
+\(B\) & \(\texttt{CFI}\) & \(\texttt{CFI}\) & No \\ \hline
+\(\texttt{CFI}\) & \(D\) & \(H\) & Yes \\ \hline
+\(D\) & \(E\) & \(\texttt{CFI}\) & No \\ \hline
+\(E\) & \(\texttt{CFI}\) & \(H\) & No \\ \hline
+\(G\) & \(H\) & \(B\) & No \\ \hline
+\(H\) & \(\texttt{CFI}\) & \(\texttt{CFI}\) & No \\ \hline
+\end{tabular}
+\end{center}
+This minimized DFA reduces the original 9 states to 7 states with the final state being \(\texttt{CFI}\).
+
+\subsubsection*{Comments and Questions}
+
+In Exercise 3.2.1, how does the order of state elimination change the final regular expression’s structure, and could a different order get us to a more simplified form?
 
 \section{Synthesis}
 

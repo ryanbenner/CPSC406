@@ -30,3 +30,11 @@ class DFA :
     def refuse(self):
         new_F = self.Q - set(self.F)
         return DFA(self.Q, self.Sigma, self.delta, self.q0, new_F)
+    
+    def to_NFA(self):
+        # make new transition function where each DFA transition becomes a set
+        from nfa import NFA
+        nfa_delta = {}
+        for (state, symbol), next_state in self.delta.items():
+            nfa_delta[(state, symbol)] = {next_state}
+        return NFA(self.Q, self.Sigma, nfa_delta, self.q0, self.F)

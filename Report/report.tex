@@ -139,7 +139,7 @@ ex.2 valid var names:
 
 Chapter 2.1 of ITALC discusses the basic model of computation that demonstrates the structure and components of finite automata. It explains that a finite automaton is a simple computational machine which is composed of a set of states, including a start state, and one or more end states. As the automaton reads an input, it transitions between states based on a set of rules, the transition functions. The section uses examples with simple intuition, such as an on/off switch, to show how a system can 'remember' essential information despite its simplicity. Also, it talks about the difference between deterministic and non-deterministic models. A deterministic model is one in which each state has a unique transition for each input, and a non-deterministic model is one where multiple transitions may be possible for one input. Although these two models are very different in practice, they recognize the same set of basic regular language. 
 
-\subsubsection*{Homework}
+\subsubsection*{Homework 1}
 
 \underline{Introduction to Automata Theory:}
 
@@ -182,7 +182,7 @@ Because finite automata have limited memory, their ability to recognize more com
 
 \subsubsection*{Notes}
 
-\subsubsection*{Homework}
+\subsubsection*{Homework 2}
 
 \underline{Exercise 2, 1-3:}
 
@@ -205,7 +205,7 @@ I occasionally find myself struggling to recognize the pattern when first lookin
 
 \subsubsection*{Notes}
 
-\subsubsection*{Homework}
+\subsubsection*{Homework 3}
 
 \underline{Homework 1}
 
@@ -297,14 +297,154 @@ Do automata with some form of union or intersection have real world applications
 \subsection{Week 5}
 
 \subsubsection*{Notes}
+Chapter 3.1-3.2 of ITALC explores regular expressions as a powerful way to more accurately describe formal languages, specifically being useful in various text processing. Regular expressions are built using basic operations such as union, concatenation,and Kleene closure, which combines simple patterns in order to create more complex expressions. These operations and the way they are used is defined through standard set operations. Union is able to combine languages by joining their elements, concatenation makes new strings by combining parts from each language, and Kleene closure allows for the generation of all potential strings. Also, Kleene's algorithm is shown as a structured method in order to change DFAs into regular expressions, usually relying on induction that builds expressions incrementally that represent state transitions. With larger automata, this algorithm can become very computationally expensive. Finally, the transition between regular expressions and automata is bidirectional, meaning you can go from one to the other and back again. 
 
-\subsubsection*{Homework}
+\subsubsection*{Homework 4}
+
+Homework 1:
+
+Let $\mathcal{A} = (Q, \Sigma, \delta: Q \times \Sigma \to Q, q_0, F)$ be a DFA.
+
+\begin{enumerate}
+    \item \textbf{Viewing $\mathcal{A}$ as an NFA:}
+
+    A DFA is a specific case of an NFA where the transition function returns only one next state for each input symbol and state. To show the DFA as an NFA, we make a new transition function $\delta': Q \times \Sigma \to \mathcal{P}(Q)$ sucsoh that:
+    \[
+    \delta'(q, a) = \{ \delta(q, a) \}
+    \]
+    This shows that each deterministic transition becomes a singleton set in the NFA transition function. All other components of the DFA remain unchanged:
+    \begin{itemize}
+        \item $Q' = Q$
+        \item $\Sigma$ remains the same
+        \item $q_0' = q_0$
+        \item $F' = F$
+    \end{itemize}
+
+    \item \textbf{General Construction:}
+
+    Given a DFA $\mathcal{A} = (Q, \Sigma, \delta, q_0, F)$, we define an equivalent NFA $\mathcal{A}' = (Q', \Sigma, \delta', q_0', F')$ as follows:
+    \begin{align*}
+        Q' &= Q \\
+        \Sigma' &= \Sigma \\
+        q_0' &= q_0 \\
+        F' &= F \\
+        \delta'(q, a) &= \{ \delta(q, a) \} \quad \text{for all } q \in Q, a \in \Sigma
+    \end{align*}
+
+    \item \textbf{Justification:}
+
+    This design ensures that $\mathcal{A}'$ accepts the same language as $\mathcal{A}$. Because each transition in the NFA $\delta'$ corresponds to the DFA's transition , the NFA has exactly one computational path for any given input string, mirroring the DFA. So,
+    \[
+    L(\mathcal{A}) = L(\mathcal{A}')
+    \]
+\end{enumerate}
+
+Homework 2: 
+
+\begin{enumerate}
+    \item \textbf{Language accepted by $\mathcal{A}$:}  
+    The NFA accepts all binary strings that have the substring \texttt{010}.
+
+    \item \textbf{Specification of $\mathcal{A}$:}  
+    \begin{itemize}
+        \item $Q = \{q_0, q_1, q_2, q_3\}$
+        \item $\Sigma = \{0, 1\}$
+        \item $q_0$ is the start state
+        \item $F = \{q_3\}$
+        \item Transition function $\delta$:
+        \begin{align*}
+            \delta(q_0, 0) &= \{q_0\} \\
+            \delta(q_0, 1) &= \{q_0, q_1\} \\
+            \delta(q_1, 0) &= \{q_2\} \\
+            \delta(q_2, 0) &= \{q_3\}, \quad \delta(q_2, 1) = \{q_1\} \\
+            \delta(q_3, 0) &= \{q_3\}, \quad \delta(q_3, 1) = \{q_3\}
+        \end{align*}
+    \end{itemize}
+
+    \item \textbf{Extended transition: compute $\hat{\delta}(q_0, 10110)$ step-by-step:}
+    \begin{itemize}
+        \item Step 0: $\{q_0\}$
+        \item Read 1: $\{q_0, q_1\}$
+        \item Read 0: $\{q_0, q_2\}$
+        \item Read 1: $\{q_0, q_1\}$
+        \item Read 1: $\{q_0, q_1\}$
+        \item Read 0: $\{q_0, q_2\}$
+        \item Final result: $\hat{\delta}(q_0, 10110) = \{q_0, q_2\}$
+    \end{itemize}
+
+    \item \textbf{All paths for $v = 1100$ and $w = 1010$:}
+
+    \textbf{Step-by-step for $v = 1100$:}
+    \begin{itemize}
+        \item Start at $\{q_0\}$
+        \item Read 1: $\{q_0, q_1\}$
+        \item Read 1: $\{q_0, q_1\}$
+        \item Read 0: $\{q_0, q_2\}$
+        \item Read 0: $\{q_0, q_3\}$ → accepted
+    \end{itemize}
+
+    \textbf{Step-by-step for $w = 1010$:}
+    \begin{itemize}
+        \item Start at $\{q_0\}$
+        \item Read 1: $\{q_0, q_1\}$
+        \item Read 0: $\{q_0, q_2\}$
+        \item Read 1: $\{q_0, q_1\}$
+        \item Read 0: $\{q_0, q_2\}$ → rejected
+    \end{itemize}
+
+    \textbf{Common diagram of all paths:}
+
+    \begin{center}
+    \begin{tikzpicture}[->, node distance=2cm, on grid, auto]
+      \node[state, initial] (q0) {$q_0$};
+      \node[state] (q1) [right=of q0] {$q_1$};
+      \node[state] (q2) [right=of q1] {$q_2$};
+      \node[state, accepting] (q3) [right=of q2] {$q_3$};
+
+      \path (q0) edge [loop above] node {0} (q0)
+            (q0) edge [bend left] node {1} (q1)
+            (q1) edge [bend left] node {0} (q2)
+            (q2) edge [bend left] node {1} (q1)
+            (q2) edge [bend left] node {0} (q3)
+            (q3) edge [loop above] node {0,1} (q3);
+
+      % Highlight sample path for v = 1100
+      \draw[red, thick, ->] (q0) to[bend left=30] node {1} (q1);
+      \draw[red, thick, ->] (q1) to[bend left=30] node {0} (q2);
+      \draw[red, thick, ->] (q2) to[bend left=30] node {0} (q3);
+    \end{tikzpicture}
+    \end{center}
+
+    \item \textbf{Powerset construction for DFA $\mathcal{A}^D$:}
+
+    Start from state $\{q_0\}$:
+    \begin{itemize}
+        \item $\delta(\{q_0\}, 0) = \{q_0\}$
+        \item $\delta(\{q_0\}, 1) = \{q_0, q_1\}$
+    \end{itemize}
+    Continue expanding:
+    \begin{itemize}
+        \item $\delta(\{q_0, q_1\}, 0) = \{q_0, q_2\}$
+        \item $\delta(\{q_0, q_1\}, 1) = \{q_0, q_1\}$
+        \item $\delta(\{q_0, q_2\}, 0) = \{q_0, q_3\}$
+        \item $\delta(\{q_0, q_2\}, 1) = \{q_0, q_1\}$
+        \item $\delta(\{q_0, q_3\}, 0) = \{q_0, q_3\}$, etc.
+    \end{itemize}
+    Accepting states: all subsets that contain $q_3$
+
+    \item \textbf{Verification and minimization:}  
+    $L(\mathcal{A}) = L(\mathcal{A}^D)$ by construction. A simple DFA for the language contains substring '010' has 4 states, so $\mathcal{A}^D$ can be simplified further.
+\end{enumerate}
+
+\subsubsection*{Comments and Questions}
+
+How does the powerset construction in Homework 2 show the relationship between DFAs and NFAs, and how does this relate to the transformation approach in Homework 1?
 
 \subsection{Week 6}
 
 \subsubsection*{Notes}
 
-\subsubsection*{Homework}
+\subsubsection*{Comments and Questions}
 
 \subsection{Week 7}
 

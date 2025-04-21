@@ -86,52 +86,58 @@
 
 \subsection{Week 1}
 
-1. Automata
+% \subsubsection*{Notes}
 
-- machine model which has variety of computations without memory
-- traversal (trees, graphs, nodes)
-- Turing machine
-- traffic light
+% 1. Automata
 
-- parking machine
-- mechanical calculators
-- streaming
-- regular expressions (regex): such as NLP, parsing, coding theory, file management
+% - machine model which has variety of computations without memory
+% - traversal (trees, graphs, nodes)
+% - Turing machine
+% - traffic light
 
-automata: implement algorithms, admit algorithmic instructions.
+% - parking machine
+% - mechanical calculators
+% - streaming
+% - regular expressions (regex): such as NLP, parsing, coding theory, file management
+
+% automata: implement algorithms, admit algorithmic instructions.
 
 
-2. Computability And complexity
+% 2. Computability And complexity
 
-- universal language to analyze algorithms/problems/computations for:
-- efficiency/(runtime, spacetime, etc) resource/scaling
-- comparison between complexity, hardness of problems
-- complexity classes
-- big-o-notation
-- reducing problems
-- P vs NP, sat problems
+% - universal language to analyze algorithms/problems/computations for:
+% - efficiency/(runtime, spacetime, etc) resource/scaling
+% - comparison between complexity, hardness of problems
+% - complexity classes
+% - big-o-notation
+% - reducing problems
+% - P vs NP, sat problems
 
-3. Graph Algorithms
+% 3. Graph Algorithms
 
-- network theory ( data, mechanical, chemical, operations)
+% - network theory ( data, mechanical, chemical, operations)
 
-2/6
+% 2/6
 
-1. Automata theory
+% 1. Automata theory
 
-states: positions: (head) $\overrightarrow{l}$  () $\overrightarrow{t}$  (end)
+% states: positions: (head) $\overrightarrow{l}$  () $\overrightarrow{t}$  (end)
 
-ex.1 parking machine:
-charge/hr = 25c
-accepted: coins, no change, no 1, 2c coins
+% ex.1 parking machine:
+% charge/hr = 25c
+% accepted: coins, no change, no 1, 2c coins
 
-states:
-- value paid so far (0)
-0 -> [5,10,25]
+% states:
+% - value paid so far (0)
+% 0 -> [5,10,25]
 
-ex.2 valid var names:
-1. index 0: letter?
-2. index n > 0: letter or digit or symbol
+% ex.2 valid var names:
+% 1. index 0: letter?
+% 2. index n > 0: letter or digit or symbol
+
+\subsubsection*{Comments and Questions}
+
+How do automata models like parking machines demonstrate the concepts of states and transitions? How does complexity theory contribute to these models?
 
 \subsection{Week 2}
 
@@ -177,10 +183,9 @@ Answer: $w_{1}$ and $w_{2}$ both achieve the end state
 \subsubsection*{Comments and Questions}
 Because finite automata have limited memory, their ability to recognize more complex language patterns is restricted. Will the range of what is categorized as a finite automaton broaden over time? How could we modify automata to recognize more complex language?
 
-
 \subsection{Week 3}
 
-\subsubsection*{Notes}
+% \subsubsection*{Notes}
 
 \subsubsection*{Homework 2}
 
@@ -203,7 +208,7 @@ I occasionally find myself struggling to recognize the pattern when first lookin
 
 \subsection{Week 4}
 
-\subsubsection*{Notes}
+% \subsubsection*{Notes}
 
 \subsubsection*{Homework 3}
 
@@ -442,15 +447,17 @@ How does the powerset construction in Homework 2 show the relationship between D
 
 \subsection{Week 6}
 
-\subsubsection*{Notes}
+% \subsubsection*{Notes}
 
 \subsubsection*{Comments and Questions}
 
+Why does state equivalence require all the suffixes, which might be infinite? Is there a bound on suffix length past which no new differences between states can arise?
+
 \subsection{Week 7}
 
-\subsubsection*{Notes}
+% \subsubsection*{Notes}
 
-\subsubsection*{Homework}
+\subsubsection*{Homework 5}
 
 \textbf{DFA Regular Expressions and State Elimination (Exercise 3.2.1)}
 
@@ -772,6 +779,184 @@ This minimized DFA reduces the original 9 states to 7 states with the final stat
 \subsubsection*{Comments and Questions}
 
 In Exercise 3.2.1, how does the order of state elimination change the final regular expression’s structure, and could a different order get us to a more simplified form?
+
+\subsection{Week 8}
+
+% \subsubsection*{Notes}
+
+\subsubsection*{Comments and Questions}
+
+Suppose you have a recursively enumerable language L accepted by a TM M. What conditions are needed to guarantee there is a halting decider M' for L, and how would you go about constructing such an M'?
+
+\subsection{Week 9}
+
+% \subsubsection*{Notes}
+% Undecidability
+% examples:
+% 1. does str s contain substring t
+% 2. is an integer a prime
+% 3. is a real number x nonzero?
+% 4. is a point x reachable from a point y
+% 5. does a program p halt on some input w
+
+% all these problems are about different objects within a turing machine as the universal computation model,
+% we say a problem is decidable if it is decidable by a turing machine (algorithm)
+% want to translate these to acceptance problems for a turing machine, problems of the form 'is W in the language of some turing machine'. this is what computability theory is about
+
+% Halting Problem:
+% Lh := { (M,W) | M TM (code), W in {0,1}, M accepts W} this is the language in set of pairs of binary strings
+% enough to reduce to a binary alphabet
+% can view every {0,1}* as a TM
+% In turn, we can enumerate all the words in {0,1}* by NN
+
+\subsubsection*{Homework 6}
+
+\noindent\textbf{Exercise A (1).} TM for \(L=\{1\,0^n : n\in\mathbb{N}\}\) that outputs \(1\,0^{n+1}\):
+\[
+M_1 = \bigl(Q_1,\Sigma,\Gamma,\delta_1,q_0,B,F_1\bigr),
+\quad
+Q_1=\{q_0,q_1,q_{\mathrm{acc}},q_{\mathrm{rej}}\},
+\quad
+\Sigma=\{0,1\},\;\Gamma=\{0,1,B\},\;
+F_1=\{q_{\mathrm{acc}}\}.
+\]
+\[
+\delta_1\colon Q_1\times\Gamma\to\Gamma\times\{L,R,S\}\times Q_1
+\]
+\[
+\begin{array}{rl}
+\delta_1(q_0,1)=(1,R,q_1), & \delta_1(q_0,0)=(\_,\_,q_{\mathrm{rej}}),\\
+\delta_1(q_0,B)=(\_,\_,q_{\mathrm{rej}}), &
+\delta_1(q_1,0)=(0,R,q_1),\\
+\delta_1(q_1,B)=(0,S,q_{\mathrm{acc}}).
+\end{array}
+\]
+
+\medskip
+\noindent\textbf{Exercise A (2).} TM for \(L=\{1\,0^n\}\) that outputs just “1”:
+\[
+M_2 = \bigl(Q_2,\Sigma,\Gamma,\delta_2,q_0,B,F_2\bigr),
+\quad
+Q_2=\{q_0,q_1,q_2,q_{\mathrm{acc}},q_{\mathrm{rej}}\},
+\quad
+\Sigma=\{0,1\},\;\Gamma=\{0,1,B\},\;
+F_2=\{q_{\mathrm{acc}}\}.
+\]
+\[
+\delta_2\colon Q_2\times\Gamma\to\Gamma\times\{L,R,S\}\times Q_2
+\]
+\[
+\begin{array}{rl}
+\delta_2(q_0,1)=(1,R,q_1), & \delta_2(q_0,0)=(\_,\_,q_{\mathrm{rej}}),\\
+\delta_2(q_0,B)=(\_,\_,q_{\mathrm{rej}}), &
+\delta_2(q_1,0)=(0,R,q_1),\\
+\delta_2(q_1,B)=(B,L,q_2), &
+\delta_2(q_2,0)=(B,L,q_2),\\
+\delta_2(q_2,1)=(1,S,q_{\mathrm{acc}}), &
+\delta_2(q_2,B)=(\_,\_,q_{\mathrm{rej}}).
+\end{array}
+\]
+
+\medskip
+\noindent\textbf{Exercise A (3).} TM for all binary strings that swaps \(0\leftrightarrow1\):
+\[
+M_3 = \bigl(Q_3,\Sigma,\Gamma,\delta_3,q_0,B,F_3\bigr),
+\quad
+Q_3=\{q_0,q_{\mathrm{acc}}\},
+\quad
+\Sigma=\{0,1\},\;\Gamma=\{0,1,B\},\;
+F_3=\{q_{\mathrm{acc}}\}.
+\]
+\[
+\delta_3\colon Q_3\times\Gamma\to\Gamma\times\{L,R,S\}\times Q_3
+\]
+\[
+\begin{array}{rl}
+\delta_3(q_0,0)=(1,R,q_0), & \delta_3(q_0,1)=(0,R,q_0),\\
+\delta_3(q_0,B)=(B,S,q_{\mathrm{acc}}).
+\end{array}
+\]
+
+\subsubsection*{Homework 7}
+
+\textbf{Exercise 1.1}\\
+Let 
+\[
+L_1 = \{M \mid M\text{ halts on }\langle M\rangle\}.
+\]
+\(L_1\) is recursively enumerable but not decidable, and its complement is not recursively enumerable.
+
+\textbf{Exercise 1.2}\\
+Let 
+\[
+L_2 = \{(M,w) \mid M\text{ halts on }w\}.
+\]
+\(L_2\) is recursively enumerable but not decidable, and its complement is not recursively enumerable.
+
+\textbf{Exercise 1.3}\\
+Let 
+\[
+L_3 = \{(M,w,k)\mid M\text{ halts on }w\text{ within }k\text{ steps}\}.
+\]
+\(L_3\) is decidable (hence both recursively enumerable and co‑recursively enumerable).
+
+\textbf{Exercise 2.1.} True. Argument: If \(M_1\) and \(M_2\) decide \(L_1\) and \(L_2\), then on input \(w\) run \(M_1(w)\); if it accepts, accept; otherwise run \(M_2(w)\); if it accepts, accept; else reject. This always halts and decides \(L_1\cup L_2\).
+
+\textbf{Exercise 2.2.} True. Argument: If \(M\) decides \(L\), then on input \(w\) run \(M(w)\) and flip its output (accept\(\leftrightarrow\)reject). The resulting machine halts on every input and decides \(\overline L\).
+
+\textbf{Exercise 2.3.} True. Argument: To decide \(L^*\), on input \(w\) use dynamic programming. Set \(\mathrm{dp}[0]=\text{true}\) and for \(1\le i\le|w|\) let
+\[
+\mathrm{dp}[i] = \exists\,j<i\;\bigl[\mathrm{dp}[j]\land M\bigl(w_{j+1}\dots w_i\bigr)\text{ accepts}\bigr].
+\]
+Then accept iff \(\mathrm{dp}[|w|]\). This halts in finitely many steps.
+
+\textbf{Exercise 2.4.} True. Argument: If \(M_1\) and \(M_2\) recognize \(L_1\) and \(L_2\), dovetail their simulations on input \(w\). If either accepts, accept. This semi‑decides \(L_1\cup L_2\), so \(L_1\cup L_2\) is r.e.
+
+\textbf{Exercise 2.5.} False. Counterexample: The halting set 
+\[
+K=\{\langle M,w\rangle\mid M\text{ halts on }w\}
+\]
+is r.e.\ but its complement \(\overline K\) is not r.e. Hence r.e.\ languages are not closed under complement.
+
+\textbf{Exercise 2.6.} True. Argument: To recognize \(L^*\), nondeterministically split \(w=w_1\cdots w_k\), dovetail-run the recognizer \(M\) on each \(w_i\), and accept if all accept. Every \(w\in L^*\) has some accepting decomposition, so this semi‑decides \(L^*\).
+
+
+\subsubsection*{Comments and Questions}
+
+1. What modifications are required to combine the “increment‐zeros” TM (Ex. 1) and the “bit‐swap” TM (Ex. 3) into a single 2‑tape TM that performs both operations in one pass?
+2. Is there a way we can augment the standard TM model that would greatly enlarge the overall class of decidable languages?
+
+\subsection{Week 10}
+
+\subsubsection*{Notes}
+
+input len n, interested in num of steps for n
+also interested in maximal number of stepss
+T: N -> R >= 0
+looking at non negative functions from f,g:N -> R >= 0
+we say the f is an element of O(g) iff f(n) <= M * g(n), we want this to hold true for some M > 0, and all n > N
+this is a measure with which we can compare the growth of functions
+
+\subsubsection*{Homework 8 and 9}
+Due April 27th
+
+\textbf{Exercise 1 (Warmup)}
+
+\begin{align*}
+f.\quad &\log\log n,\\
+c.\quad &\log n,\\
+b.\quad &e^{\log n} = n,\\
+e.\quad &e^{2\log n} = n^2,\\
+g.\quad &2^n,\\
+d.\quad &e^n,\\
+h.\quad &n!,\\
+a.\quad &2^{2^n}.
+\end{align*}
+
+\textbf{Exercise 2}
+
+
+\subsubsection*{Comments and Questions}
 
 \section{Synthesis}
 

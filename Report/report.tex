@@ -900,25 +900,25 @@ L_3 = \{(M,w,k)\mid M\text{ halts on }w\text{ within }k\text{ steps}\}.
 \]
 \(L_3\) is decidable (hence both recursively enumerable and co‑recursively enumerable).
 
-\textbf{Exercise 2.1.} True. Argument: If \(M_1\) and \(M_2\) decide \(L_1\) and \(L_2\), then on input \(w\) run \(M_1(w)\); if it accepts, accept; otherwise run \(M_2(w)\); if it accepts, accept; else reject. This always halts and decides \(L_1\cup L_2\).
+\textbf{Exercise 2.1.} True. Argument: If \(M_1\) and \(M_2\) decide \(L_1\) and \(L_2\), then when you have an input \(w\) run \(M_1(w)\); if it accepts, accept; otherwise run \(M_2(w)\); if it accepts, accept; else it rejects. This always halts and decides if \(L_1\cup L_2\).
 
-\textbf{Exercise 2.2.} True. Argument: If \(M\) decides \(L\), then on input \(w\) run \(M(w)\) and flip its output (accept\(\leftrightarrow\)reject). The resulting machine halts on every input and decides \(\overline L\).
+\textbf{Exercise 2.2.} True. Argument: If \(M\) decides \(L\), then when you have an input \(w\) run \(M(w)\) and flip the output (accept\(\leftrightarrow\)reject). The resulting machine will halt on every input and decides \(\overline L\).
 
-\textbf{Exercise 2.3.} True. Argument: To decide \(L^*\), on input \(w\) use dynamic programming. Set \(\mathrm{dp}[0]=\text{true}\) and for \(1\le i\le|w|\) let
+\textbf{Exercise 2.3.} True. Argument: To decide \(L^*\), on an input \(w\) use dynamic programming principles. Set \(\mathrm{dp}[0]=\text{true}\) and for \(1\le i\le|w|\), let:
 \[
 \mathrm{dp}[i] = \exists\,j<i\;\bigl[\mathrm{dp}[j]\land M\bigl(w_{j+1}\dots w_i\bigr)\text{ accepts}\bigr].
 \]
-Then accept iff \(\mathrm{dp}[|w|]\). This halts in finitely many steps.
+Then accept iff \(\mathrm{dp}[|w|]\). This halts in a finite amount of steps.
 
-\textbf{Exercise 2.4.} True. Argument: If \(M_1\) and \(M_2\) recognize \(L_1\) and \(L_2\), dovetail their simulations on input \(w\). If either accepts, accept. This semi‑decides \(L_1\cup L_2\), so \(L_1\cup L_2\) is r.e.
+\textbf{Exercise 2.4.} True. Argument: If \(M_1\) and \(M_2\) recognize \(L_1\) and \(L_2\), combine their simulations on input \(w\). If either accepts, accept. This kind of decides \(L_1\cup L_2\), so \(L_1\cup L_2\) is r.e.
 
 \textbf{Exercise 2.5.} False. Counterexample: The halting set 
 \[
 K=\{\langle M,w\rangle\mid M\text{ halts on }w\}
 \]
-is r.e.\ but its complement \(\overline K\) is not r.e. Hence r.e.\ languages are not closed under complement.
+is r.e.\, but its complement \(\overline K\) is not r.e. So, r.e.\ languages are not closed under the complement.
 
-\textbf{Exercise 2.6.} True. Argument: To recognize \(L^*\), nondeterministically split \(w=w_1\cdots w_k\), dovetail-run the recognizer \(M\) on each \(w_i\), and accept if all accept. Every \(w\in L^*\) has some accepting decomposition, so this semi‑decides \(L^*\).
+\textbf{Exercise 2.6.} True. Argument: To recognize \(L^*\), we nondeterministically split \(w=w_1\cdots w_k\), 'dovetail'-run the recognizer \(M\) on each \(w_i\), and accept if all accept. Every \(w\in L^*\) will have some accepting 'decomposition', so this semi‑decides \(L^*\), but not completely.
 
 
 \subsubsection*{Comments and Questions}

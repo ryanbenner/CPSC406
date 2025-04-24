@@ -673,47 +673,56 @@ $H$ & $G$ & $D$ \\ \hline
 
 \medskip
 
-\textbf{a. Table of Distinguishabilities}\\[1mm]
-We make a lower-triangular table marking different pairs of states.\\[1mm]
-\textbf{Step 1:} Mark all the pairs that have one state as final (\(D\)) and the other as non-final.\\[1mm]
-\textbf{Step 2:} Propagate markings by checking transitions.\\[1mm]
-Final table (checkmark = marked/inequivalent, blank = equivalent):
-\[
-\begin{array}{c|cccccccc}
-& A & B & C & D & E & F & G & H\\ \hline
-B & \checkmark &  &  &  &  &  &  &  \\
-C & \checkmark & \checkmark &  &  &  &  &  &  \\
-D & \checkmark & \checkmark & \checkmark &  & \checkmark & \checkmark & \checkmark & \checkmark \\
-E & \checkmark & \checkmark & \checkmark & \checkmark &  &  &  &  \\
-F & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark &  &  &  \\
-G & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark &  &  \\
-H & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark &  \\
-\end{array}
-\]
+\textbf{a. Table of Distinguishabilities}
+
+Final table (X = marked/inequivalent, blank = equivalent):
+\begin{table}[h]
+  \centering
+  \begin{tabular}{c|ccccccc}
+     & B & C & D & E & F & G & H \\ \hline
+  A  & X & X & X & X & X &   & X \\
+  B  &   & X & X & X &   & X & X \\
+  C  &   &   & X &   & X & X & X \\
+  D  &   &   &   & X & X & X & X \\
+  E  &   &   &   &   & X & X & X \\
+  F  &   &   &   &   &   & X & X \\
+  G  &   &   &   &   &   &   & X \\
+  H  &   &   &   &   &   &   &   \\
+  \end{tabular}
+  \caption{Table of distinguishable state pairs}
+  \label{tab:distinguishables}
+  \end{table}
 The unmarked (equivalent) states are \(E\), \(F\), and \(G\).
 
 \medskip
 
-\textbf{b. Minimum-State Equivalent DFA}\\[1mm]
-Merge equal states:
-\[
-[E, F, G] \to \texttt{EFG}.
-\]
-The new transition table is:
-\begin{center}
-\begin{tabular}{|c|c|c|c|}
-\hline
-State & 0   & 1   & Accept? \\ \hline
-\(A\) & \(B\) & \(A\) & No \\ \hline
-\(B\) & \(A\) & \(C\) & No \\ \hline
-\(C\) & \(D\) & \(B\) & No \\ \hline
-\(D\) & \(D\) & \(A\) & Yes \\ \hline
-\(\texttt{EFG}\) & \(\texttt{EFG}\) & \(\texttt{EFG}\) & No \\ \hline
-\(H\) & \(\texttt{EFG}\) & \(D\) & No \\ \hline
-\end{tabular}
-\end{center}
+\textbf{b. Minimum-State Equivalent DFA}
+Define the minimized DFA \(M'=(Q',\Sigma,\delta',q_0',F')\) as follows:
 
-\bigskip
+\[
+\begin{aligned}
+Q'    &= \{\, [AG],\,[BF],\,[CE],\,[D],\,[H] \,\},\\
+\Sigma&= \{0,1\},\\
+q_0'  &= [AG],\\
+F'    &= \{[D]\}.
+\end{aligned}
+\]
+
+\medskip
+
+The transition function \(\delta'\) is given by:
+
+\[
+  \begin{array}{c|cc}
+    \delta'    & 0           & 1         \\
+    \hline
+    \text{[AG]} & \text{[BF]} & \text{[AG]} \\
+    \text{[BF]} & \text{[AG]} & \text{[CE]} \\
+    \text{[CE]} & \text{[D]}  & \text{[BF]} \\
+    \text{[D]}  & \text{[D]}  & \text{[AG]} \\
+    \text{[H]}  & \text{[AG]} & \text{[D]}
+  \end{array}
+\]
 
 \textbf{DFA Minimization (Exercise 4.4.2)}
 
@@ -738,43 +747,54 @@ $\rightarrow A$ & \(B\) & \(E\) \\ \hline
 
 \textbf{a. Table of Distinguishabilities}\\[1mm]
 Final states: \(C\), \(F\), and \(I\).\\[1mm]
-Mark all the pairs with one final and one non-final state, then make distinctions. The final table (checkmark = distinguishable) is:
-\[
-\begin{array}{c|ccccccccc}
- & A & B & C & D & E & F & G & H & I \\ \hline
-B & \checkmark &  &  &  &  &  &  &  &  \\
-C & \checkmark & \checkmark &  &  &  &  &  &  &  \\
-D & \checkmark & \checkmark & \checkmark &  &  &  &  &  &  \\
-E & \checkmark & \checkmark & \checkmark & \checkmark &  &  &  &  &  \\
-F & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark &  &  &  &  \\
-G & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark &  &  &  \\
-H & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark &  &  \\
-I & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark &  \\
-\end{array}
-\]
-The equivalent states (unmarked) are \(C\), \(F\), and \(I\), which we merge as:
-\[
-[C, F, I] \to \texttt{CFI}.
-\]
+Mark all the pairs with one final and one non-final state, then make distinctions. The final table (X = distinguishable) is:
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{c|cccccccc}
+     & B & C & D & E & F & G & H & I\\ \hline
+  A  & X & X & X & X & X & X & X & X\\
+  B  &   & X & X & X & X & X & X & X\\
+  C  &   &   & X & X & X & X & X & X\\
+  D  &   &   &   & X & X & X & X & X\\
+  E  &   &   &   &   & X & X & X & X\\
+  F  &   &   &   &   &   & X & X & X\\
+  G  &   &   &   &   &   &   & X & X\\
+  H  &   &   &   &   &   &   &   & X\\
+  \end{tabular}
+  \caption{Table of distinguishable state pairs}
+  \label{tab:distinguishables2}
+  \end{table}
 
 \medskip
 
-\textbf{b. Minimum-State Equivalent DFA}\\[1mm]
-The new transition table becomes:
-\begin{center}
-\begin{tabular}{|c|c|c|c|}
-\hline
-State & 0   & 1   & Accept? \\ \hline
-\(A\) & \(B\) & \(E\) & No \\ \hline
-\(B\) & \(\texttt{CFI}\) & \(\texttt{CFI}\) & No \\ \hline
-\(\texttt{CFI}\) & \(D\) & \(H\) & Yes \\ \hline
-\(D\) & \(E\) & \(\texttt{CFI}\) & No \\ \hline
-\(E\) & \(\texttt{CFI}\) & \(H\) & No \\ \hline
-\(G\) & \(H\) & \(B\) & No \\ \hline
-\(H\) & \(\texttt{CFI}\) & \(\texttt{CFI}\) & No \\ \hline
-\end{tabular}
-\end{center}
-This minimized DFA reduces the original 9 states to 7 states with the final state being \(\texttt{CFI}\).
+\textbf{b. Minimum-State Equivalent DFA}
+
+Define \(M = (Q,\Sigma,\delta,q_0,F)\) where
+\[
+\begin{aligned}
+Q      &= \{\text{[A]},\text{[B]},\text{[C]},\text{[D]},\text{[E]},\text{[F]},\text{[G]},\text{[H]},\text{[I]}\},\\
+\Sigma &= \{0,1\},\\
+q_0    &= \text{[A]},\\
+F      &= \{\text{[C]},\text{[F]},\text{[I]}\}.
+\end{aligned}
+\]
+The transition function \(\delta\) is given by:
+
+\[
+\begin{array}{c|cc}
+\delta      & 0           & 1           \\\hline
+\text{[A]} & \text{[B]} & \text{[E]} \\
+\text{[B]} & \text{[C]} & \text{[F]} \\
+\text{[C]} & \text{[D]} & \text{[H]} \\
+\text{[D]} & \text{[E]} & \text{[I]} \\
+\text{[E]} & \text{[F]} & \text{[H]} \\
+\text{[F]} & \text{[G]} & \text{[B]} \\
+\text{[G]} & \text{[H]} & \text{[B]} \\
+\text{[H]} & \text{[I]} & \text{[C]} \\
+\text{[I]} & \text{[A]} & \text{[E]}
+\end{array}
+\]
 
 \subsubsection*{Comments and Questions}
 
@@ -954,6 +974,120 @@ a.\quad &2^{2^n}.
 \end{align*}
 
 \textbf{Exercise 2}
+
+\textbf{Exercise 2.1}  
+\emph{Claim:} $f\in O(f)$.  
+\noindent\emph{Proof.}  
+Choose $c=1$ and any $n_0$. Then for all $n\ge n_0$,
+\[
+  f(n)\le 1\cdot f(n).
+\]
+
+\textbf{Exercise 2.2}  
+\emph{Claim:} If $c>0$ is constant then $O(c\cdot f)=O(f)$.  
+\noindent\emph{Proof.}  
+\begin{itemize}
+  \item[$\subseteq$] If $g\in O(c\,f)$ then there exist constants $C,n_1$ such that for all $n\ge n_1$,
+  \[
+    g(n)\le C\,(c\,f(n))=(C\,c)\,f(n),
+  \]
+  so $g\in O(f)$.
+  \item[$\supseteq$] If $g\in O(f)$ then there exist constants $D,n_2$ such that for all $n\ge n_2$,
+  \[
+    g(n)\le D\,f(n)=(D/c)\,(c\,f(n)),
+  \]
+  so $g\in O(c\,f)$.
+\end{itemize}
+
+\textbf{Exercise 2.3}  
+\emph{Claim:} If $f(n)\le g(n)$ for all $n\ge n_0$, then $O(f)\subseteq O(g)$.  
+\noindent\emph{Proof.}  
+Let $h\in O(f)$, so there exist $C,n_1$ such that for all $n\ge n_1$,
+\[
+  h(n)\le C\,f(n)\le C\,g(n).
+\]
+Thus $h\in O(g)$.
+
+\textbf{Exercise 2.4}  
+\emph{Claim:} If $O(f)\subseteq O(g)$ then $O(f+h)\subseteq O(g+h)$.  
+\noindent\emph{Proof.}  
+From $O(f)\subseteq O(g)$ we have $f\in O(g)$, so there exist $A,N$ such that for all $n\ge N$,
+\[
+  f(n)\le A\,g(n).
+\]
+If $k\in O(f+h)$ then there exist $C,n_0$ such that for all $n\ge n_0$,
+\[
+  k(n)\le C\bigl(f(n)+h(n)\bigr)
+  \le C\bigl(A\,g(n)+h(n)\bigr)
+  \le C\max(A,1)\,\bigl(g(n)+h(n)\bigr),
+\]
+hence $k\in O(g+h)$.
+
+\textbf{Exercise 2.5}  
+\emph{Claim:} If $h(n)>0$ for all $n$ and $O(f)\subseteq O(g)$ then $O(f\cdot h)\subseteq O(g\cdot h)$.  
+\noindent\emph{Proof.}  
+Again $f\in O(g)$, so there exist $A,N$ such that for all $n\ge N$,
+\[
+  f(n)\le A\,g(n).
+\]
+If $k\in O(f\cdot h)$ then there exist $C,n_0$ such that for all $n\ge n_0$,
+\[
+  k(n)\le C\,f(n)\,h(n)
+  \le C\,(A\,g(n))\,h(n)
+  =(C\,A)\,\bigl(g(n)\,h(n)\bigr),
+\]
+hence $k\in O(g\cdot h)$.
+
+\textbf{Exercise 3}
+
+\textbf{Exercise 3.1}  
+\emph{Claim:} If $j\le k$ then $O(n^j)\subseteq O(n^k)$.  
+\noindent\emph{Proof.}  
+For all $n\ge1$, $n^j\le n^k$. If $f\in O(n^j)$ then there exist $C,n_0$ such that for all $n\ge n_0$,
+\[
+  f(n)\;\le\;C\,n^j\;\le\;C\,n^k,
+\]
+so $f\in O(n^k)$.
+
+\textbf{Exercise 3.2}  
+\emph{Claim:} If $j\le k$ then $O(n^j + n^k)\subseteq O(n^k)$.  
+\noindent\emph{Proof.}  
+For all $n\ge1$, $n^j + n^k \le 2\,n^k$. If $g\in O(n^j + n^k)$ then there exist $C,n_0$ such that for all $n\ge n_0$,
+\[
+  g(n)\;\le\;C\,(n^j + n^k)\;\le\;2C\,n^k,
+\]
+so $g\in O(n^k)$.
+
+\textbf{Exercise 3.3}  
+\emph{Claim:} $O\bigl(\sum_{i=0}^k a_i\,n^i\bigr)=O(n^k)$.  
+\noindent\emph{Proof.}  
+Let $A=\sum_{i=0}^k|a_i|$. For all $n\ge1$,
+\[
+  \sum_{i=0}^k a_i\,n^i
+  \;\le\;
+  \sum_{i=0}^k |a_i|\,n^k
+  \;=\;
+  A\,n^k.
+\]
+Hence any $h\in O\bigl(\sum a_i\,n^i\bigr)$ satisfies $h(n)\le C\,A\,n^k$ for some $C,n_0$, so $h\in O(n^k)$.
+
+\textbf{Exercise 3.4}  
+\emph{Claim:} $O(\log n)\subseteq O(n)$.  
+\noindent\emph{Proof.}  
+For all $n\ge2$, $\log n\le n$. If $p\in O(\log n)$ then there exist $C,n_0$ such that for all $n\ge\max(2,n_0)$,
+\[
+  p(n)\;\le\;C\,\log n\;\le\;C\,n,
+\]
+so $p\in O(n)$.
+
+\textbf{Exercise 3.5}  
+\emph{Claim:} $O(n\log n)\subseteq O(n^2)$.  
+\noindent\emph{Proof.}  
+For all $n\ge2$, $\log n\le n$, hence $n\log n\le n^2$. If $q\in O(n\log n)$ then there exist $C,n_0$ such that for all $n\ge\max(2,n_0)$,
+\[
+  q(n)\;\le\;C\,n\log n\;\le\;C\,n^2,
+\]
+so $q\in O(n^2)$.
 
 
 \subsubsection*{Comments and Questions}

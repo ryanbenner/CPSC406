@@ -1094,6 +1094,125 @@ so $q\in O(n^2)$.
 
 Why does Big-O ignore constant factors and smaller terms, and how does that help us choose and improve algorithms?
 
+\subsection{Week 11/12}
+
+% \subsubsection*{Notes}
+
+\subsubsection*{Homework 10/11}
+
+\textbf{Exercise 1}
+
+\begin{enumerate}
+  \item 
+    \[
+      \varphi_{1} \;=\;\neg\bigl((a\wedge b)\lor(\neg c\wedge d)\bigr)
+    \]
+    \begin{align*}
+      &=\;\neg(a\wedge b)\;\land\;\neg(\neg c\wedge d) 
+        &&\text{(De Morgan)}\\
+      &=\;(\neg a\lor\neg b)\;\land\;(\neg\neg c\lor\neg d)
+        &&\text{(De Morgan)}\\
+      &=\;(\neg a\lor\neg b)\;\land\;(c\lor\neg d)
+    \end{align*}
+
+  \item 
+    \[
+      \varphi_{2} \;=\;\neg\bigl((p\lor q)\to(r\wedge\neg s)\bigr)
+    \]
+    \begin{align*}
+      &=\;\neg\bigl(\neg(p\lor q)\;\lor\;(r\wedge\neg s)\bigr)
+        &&\text{(implication }A\to B\equiv\neg A\lor B)\\
+      &=\;\neg\neg(p\lor q)\;\land\;\neg(r\wedge\neg s)
+        &&\text{(De Morgan)}\\
+      &=\;(p\lor q)\;\land\;(\neg r\lor s)
+    \end{align*}
+\end{enumerate}
+
+\textbf{Exercise 2}
+
+\begin{align*}
+\psi_1 &= (a\lor\neg b)\land(\neg a\lor b)\land(\neg a\lor\neg b) \\
+       &\text{Try }a=0:\;(a\lor\neg b)\Rightarrow b=0,\;(\neg a\lor b)=1 
+         \;\Longrightarrow\;(a,b)=(0,0)\text{ satisfies all.}
+\\[1ex]
+\psi_2 &= (\neg p\lor q)\land(\neg q\lor r)\land\neg(\neg p\lor r) \\
+       &\equiv(\neg p\lor q)\land(\neg q\lor r)\land(p\land\neg r) \\
+       &\quad\Rightarrow q=1,\;(\neg q\lor r)=0
+         \;\Longrightarrow\;\text{unsatisfiable.}
+\\[1ex]
+\psi_3 &= (x\lor y)\land(\neg x\lor y)\land(x\lor\neg y)\land(\neg x\lor\neg y) \\
+       &\implies x\iff y \\
+       &\quad\{x,y\}=\{0,0\}\text{ fails }(x\lor y),\;
+         \{1,1\}\text{ fails }(\neg x\lor\neg y)
+         \;\Longrightarrow\;\text{unsatisfiable.}
+\end{align*}
+
+\textbf{Exercise 3 Sudoku}
+
+Let
+\[
+x_{r,c,v} \;=\;
+\begin{cases}
+\text{true,} &\text{if the cell in row }r\text{ and column }c\text{ holds the digit }v,\\
+\text{false,} &\text{otherwise},
+\end{cases}
+\]
+for \(r,c,v\in\{1,\dots,9\}\).  Our overall formula is
+\[
+\Phi \;=\; C_{1}\;\land\;C_{2}\;\land\;C_{3}\;\land\;C_{4}\;\land\;C_{5}\;\land\;C_{6}\,.
+\]
+
+\subsubsection*{Constraint 1: Each cell has at least one digit}
+\[
+C_{1}\;=\;
+\bigwedge_{r=1}^{9}\;\bigwedge_{c=1}^{9}
+\Bigl(\,\bigvee_{v=1}^{9} x_{r,c,v}\Bigr)
+\]
+
+\subsubsection*{Constraint 2: No cell contains two different digits}
+\[
+C_{2}\;=\;
+\bigwedge_{r=1}^{9}\;\bigwedge_{c=1}^{9}\;
+\bigwedge_{1\le v<v'\le9}
+\bigl(\,\neg x_{r,c,v}\;\lor\;\neg x_{r,c,v'}\bigr)
+\]
+
+\subsubsection*{Constraint 3: Each digit appears in every row}
+\[
+C_{3}\;=\;
+\bigwedge_{r=1}^{9}\;\bigwedge_{v=1}^{9}
+\Bigl(\,\bigvee_{c=1}^{9} x_{r,c,v}\Bigr)
+\]
+
+\subsubsection*{Constraint 4: Each digit appears in every column}
+\[
+C_{4}\;=\;
+\bigwedge_{c=1}^{9}\;\bigwedge_{v=1}^{9}
+\Bigl(\,\bigvee_{r=1}^{9} x_{r,c,v}\Bigr)
+\]
+
+\subsubsection*{Constraint 5: Each digit appears in each \(3\times3\) block}
+Index blocks by \(b_r,b_c\in\{0,1,2\}\).  So
+\[
+C_{5}\;=\;
+\bigwedge_{v=1}^{9}\;\bigwedge_{b_r=0}^{2}\;\bigwedge_{b_c=0}^{2}
+\Bigl(\,\bigvee_{r=3b_r+1}^{3b_r+3}\;\bigvee_{c=3b_c+1}^{3b_c+3}\;
+x_{r,c,v}\Bigr)
+\]
+
+\subsubsection*{Constraint 6: Respect the given clues}
+The preset entries will be
+\(\;G=\{(r_i,c_i,v_i)\mid i=1,\dots,m\}.\)
+So
+\[
+C_{6}\;=\;
+\bigwedge_{(r_i,c_i,v_i)\in G} x_{r_i,c_i,v_i}\,.
+\]
+
+\subsection*{Comments and Questions}
+
+Is this the most efficient way to encode a problem like Sudoku? Are there other algorithmic approaches that are better or worse to solving such a problem?
+
 \section{Synthesis}
 
 \section{Evidence of Participation}

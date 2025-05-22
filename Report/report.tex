@@ -147,17 +147,20 @@ Chapter 2.1 of ITALC discusses the basic model of computation that demonstrates 
 
 \subsubsection*{Homework 1}
 
-\underline{Introduction to Automata Theory:}
+\textbf{Introduction to Automata Theory:}
 
-Homework: Characterize all the accepted words (i.e., describe exactly those words that get recognized).\newline
-Answer:  [5, 5, 5, 5, 5], [5, 5, 5, 10], [5, 5, 10, 5], [5, 10, 5, 5], [5, 10, 10], [10, 5, 5, 5], [10, 5, 10], [10, 10, 5]
+Homework: Characterize all the accepted words (i.e., describe exactly those words that get recognized).
 
-Homework: Characterize all the accepted words. Can you describe them via a regular expression?\newline
+Answer:  $[5, 5, 5, 5, 5], [5, 5, 5, 10], [5, 5, 10, 5], [5, 10, 5, 5], [5, 10, 10], [10, 5, 5, 5], [10, 5, 10], [10, 10, 5]$
+
+Homework: Characterize all the accepted words. Can you describe them via a regular expression?
+
 Answer: Any word which ends in 'pay' will result in end state being unlocked
 
-\underline{Deterministic and Non-Deterministic Finite Automata:}
+\textbf{Deterministic and Non-Deterministic Finite Automata:}
 
-Homework: Determine for the following words, if they are contained in $L_{1}$, $L_{2}$, or $L_{3}$.\newline
+Homework: Determine for the following words, if they are contained in $L_{1}$, $L_{2}$, or $L_{3}$.
+
 Answer:
 \begin{table}[!ht]
   \centering
@@ -198,9 +201,19 @@ The file $\mathbf{dfa-ex01.py}$ implements two DFAs, A1 and A2, and runs each th
 \lstinputlisting[language=Octave]{../labs/py-automata/dfa.py}
 \lstinputlisting[language=Octave]{../labs/py-automata/dfa_ex01.py}
 
-\underline{Drawings for Lab Exercise 4, ITALC Exercise 2.2.4}
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.2]{attachments/LabExercise4.jpg}
+\end{center}
+\caption{Lab Exercsie 4}
+\end{figure}
 
-\includepdf[pages=-]{attachments/CPSC406_HW2.pdf}
+\begin{figure}
+  \begin{center}
+\includegraphics[scale=0.2]{attachments/LabExercise4_2.jpg}
+\end{center}
+\caption{ITALC Exercise 2.2.4}
+\end{figure}
 
 \subsubsection*{Comments and Questions}
 
@@ -1291,7 +1304,7 @@ O(n^3).
 
 How do different augmenting paths change the residual graph, and can they have multiple minimum cuts with the same capacity?
 
-\section{Synthesis}
+\section{Synthesis and Reflection}
 
 \section{Evidence of Participation}
 
